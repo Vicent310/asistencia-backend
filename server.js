@@ -1,27 +1,19 @@
-// 📦 Importación de dependencias
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 
-// 🚀 Inicialización
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// 🌐 Habilitar CORS para frontend en GitHub Pages
-app.use(cors({
-  origin: 'https://vicent310.github.io'
-}));
-
-// 📥 Middleware para interpretar JSON y formularios
+// ✅ Solo una vez
+app.use(cors({ origin: 'https://vicent310.github.io' }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-// 🔧 Servir archivos estáticos si los usas (opcional)
 app.use(express.static(path.join(__dirname, 'public')));
 
-// 💾 Conexión a la base de datos SQLite
+// 📦 Base de datos
 const db = new sqlite3.Database('./db/asistencia.db', (err) => {
   if (err) return console.error(err.message);
   console.log('✅ Conectado a la base de datos asistencia.db');
