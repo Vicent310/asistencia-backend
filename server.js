@@ -7,16 +7,25 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// ✅ Solo una vez
-app.use(cors({ origin: 'https://vicent310.github.io' }));
+// ✅ Solo una vez: habilitar CORS
+app.use(cors({
+  origin: 'https://vicent310.github.io'
+}));
+
+// ✅ Solo una vez: body-parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// ✅ Solo una vez: archivos públicos
 app.use(express.static(path.join(__dirname, 'public')));
 
-// 📦 Base de datos
+// ✅ Base de datos
 const db = new sqlite3.Database('./db/asistencia.db', (err) => {
-  if (err) return console.error(err.message);
-  console.log('✅ Conectado a la base de datos asistencia.db');
+  if (err) {
+    console.error('❌ Error al conectar con la base de datos:', err.message);
+  } else {
+    console.log('✅ Conectado a la base de datos asistencia.db');
+  }
 });
 
 // Ruta para registrar asistencia
@@ -180,9 +189,10 @@ app.post('/eliminar-usuario', (req, res) => {
     });
   });
 });
-console.log("🔐 Petición recibida a /login-docente:", req.body);
 app.post('/login-docente', (req, res) => {
   const { usuario, password } = req.body;
+
+  console.log("🔐 Petición recibida a /login-docente:", req.body); // ✅ Aquí sí funciona
 
   db.get('SELECT * FROM tabla_admon WHERE usuario = ? AND contrasena = ?', [usuario, password], (err, row) => {
     if (err) return res.status(500).json({ success: false, mensaje: 'Error del servidor' });
@@ -207,6 +217,6 @@ app.get('/', (req, res) => {
 
 // Iniciar servidor
 app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://:${PORT}`);
+  console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
 });
 // Última modificación para activación en Render
