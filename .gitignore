@@ -1,8 +1,4 @@
 db/asistencia.db
-
-# Evitar subir dependencias pesadas
 node_modules/
-
-# Archivos de sistema (Mac)
 .DS_Store
-
+/public/
