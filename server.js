@@ -190,26 +190,32 @@ app.post('/eliminar-usuario', (req, res) => {
   });
 });
 app.post('/login-docente', (req, res) => {
+  console.log("🔐 Petición recibida a /login-docente:", req.body);
+
   const { usuario, password } = req.body;
 
-  console.log("🔐 Petición recibida a /login-docente:", req.body); // ✅ Aquí sí funciona
-
   db.get('SELECT * FROM tabla_admon WHERE usuario = ? AND contrasena = ?', [usuario, password], (err, row) => {
-    if (err) return res.status(500).json({ success: false, mensaje: 'Error del servidor' });
+    if (err) {
+      console.error("❌ Error en la consulta SQL:", err.message);  // 👈 esto ayudará a saber qué está fallando
+      return res.status(500).json({ success: false, mensaje: 'Error del servidor (consulta)' });
+    }
 
-    if (row) {
-      if (row.tipo === 'administrativo') {
-        res.json({ success: true, redireccion: 'panel_admon.html' });
-      } else if (row.tipo === 'docente') {
-        res.json({ success: true, redireccion: 'panel_docente.html' });
-      } else {
-        res.json({ success: false, mensaje: 'Tipo de usuario no reconocido' });
-      }
+    if (!row) {
+      console.warn("⚠️ Usuario no encontrado o contraseña incorrecta");
+      return res.status(401).json({ success: false, mensaje: 'Usuario o contraseña incorrectos' });
+    }
+
+    if (row.tipo === 'administrativo') {
+      return res.json({ success: true, redireccion: 'panel_admon.html' });
+    } else if (row.tipo === 'docente') {
+      return res.json({ success: true, redireccion: 'panel_docente.html' });
     } else {
-      res.json({ success: false, mensaje: 'Usuario o contraseña incorrectos' });
+      console.warn("⚠️ Tipo de usuario no reconocido:", row.tipo);
+      return res.status(400).json({ success: false, mensaje: 'Tipo de usuario no reconocido' });
     }
   });
 });
+
 // Ruta raíz para mostrar que el backend está activo
 app.get('/', (req, res) => {
   res.send('✅ Backend de asistencia funcionando correctamente');
