@@ -198,11 +198,13 @@ app.post('/login-docente', (req, res) => {
     }
   });
 });
+// Ruta raíz para mostrar que el backend está activo
+app.get('/', (req, res) => {
+  res.send('✅ Backend de asistencia funcionando correctamente');
+});
 
 // Iniciar servidor
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
-
-
 // Última modificación para activación en Render
