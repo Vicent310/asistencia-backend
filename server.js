@@ -47,6 +47,7 @@ app.post('/registrar', (req, res) => {
     if (!usuario) return res.status(404).json({ mensaje: 'Usuario no encontrado' });  
 
     db.get("SELECT * FROM tabla_registro WHERE matricula = ? AND fecha = ?", [matricula, fecha], (err, registroHoy) => {
+      console.log("🔍 Registro encontrado hoy:", registroHoy);
       if (err) return res.status(500).json({ mensaje: 'Error al buscar registro' });
 
       if (!registroHoy) {
@@ -79,7 +80,8 @@ app.post('/registrar', (req, res) => {
           }
         );
 
-      } else if (registroHoy.hora_entrada && !registroHoy.hora_salida) {
+      } else if (registroHoy.hora_entrada && (!registroHoy.hora_salida || registroHoy.hora_salida.trim() === '')) {
+
         // Registrar salida
         db.run(
           "UPDATE tabla_registro SET hora_salida = ? WHERE id = ?",
