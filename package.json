@@ -1,0 +1,18 @@
+{
+  "name": "asistencia_restore",
+  "version": "1.0.0",
+  "description": "Sistema de asistencia escolar con QR y base de datos en SQLite",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": ["asistencia", "secundaria", "QR", "node", "express", "sqlite"],
+  "author": "Juan Rodriguez",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2",
+    "sqlite3": "^5.1.6"
+  }
+}
