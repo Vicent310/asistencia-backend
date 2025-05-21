@@ -942,7 +942,7 @@ a2acea156ee6f56de72611b721d53bca3372425f node_modules/make-fetch-happen/lib/cach
 cca93d9b4eb5d35d9cdab96d38f2998151f62c7d node_modules/make-fetch-happen/lib/cache/index.js
 f7684d562b7fae326eaebd728c24a6e31ed826d6 node_modules/make-fetch-happen/lib/cache/key.js
 e0959f64ddf9df9be2d25d7c26853bb5d388883c node_modules/make-fetch-happen/lib/cache/policy.js
-dfded79295da1d75ada3d7536967bab1e0c80a90 node_modules/make-fetch-happen/lib/fetch.js
+dfded79295da1d75ada3d7536967bab1e0c80a90 node_modules/make-fetch-happen/lib/.js
 6028bc0725129affc8a0485c29cf3853c93fa386 node_modules/make-fetch-happen/lib/index.js
 f6138e6e1d13a67ea1a70c595811a3f40826d950 node_modules/make-fetch-happen/lib/options.js
 7e4ed24edb5304786a3f37380810dcebce291800 node_modules/make-fetch-happen/lib/remote.js

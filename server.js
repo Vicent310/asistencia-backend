@@ -3,9 +3,15 @@ const express = require('express');
 const path = require('path');
 const sqlite3 = require('sqlite3').verbose();
 const bodyParser = require('body-parser');
+const cors = require('cors');
+
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
+
+app.use(cors({
+  origin: 'https://vicent310.github.io'
+}));
 
 // Base de datos
 const db = new sqlite3.Database('./db/asistencia.db', (err) => {
