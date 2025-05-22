@@ -1,4 +1,4 @@
-db/asistencia.db
+#db/asistencia.db
 node_modules/
 .DS_Store
 /public/

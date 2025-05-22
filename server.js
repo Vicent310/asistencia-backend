@@ -70,6 +70,7 @@ app.post('/registrar', (req, res) => {
           ],
           function (err) {
             if (err) return res.status(500).json({ mensaje: 'Error al registrar entrada' });
+            console.log("✅ Registrando ENTRADA en BD");
             return res.json({
               mensaje: 'Entrada registrada',
               tipo: 'entrada',
@@ -88,6 +89,7 @@ app.post('/registrar', (req, res) => {
           [hora, registroHoy.id],
           function (err) {
             if (err) return res.status(500).json({ mensaje: 'Error al registrar salida' });
+            console.log("✅ Registrando SALIDA en BD");
             return res.json({
               mensaje: 'Salida registrada',
               tipo: 'salida',
@@ -221,6 +223,16 @@ app.post('/login-docente', (req, res) => {
 // Ruta raíz para mostrar que el backend está activo
 app.get('/', (req, res) => {
   res.send('✅ Backend de asistencia funcionando correctamente');
+});
+// 🔍 Ruta temporal para ver los últimos 20 registros guardados
+app.get('/debug-registros', (req, res) => {
+  db.all("SELECT * FROM tabla_registro ORDER BY id DESC LIMIT 20", [], (err, rows) => {
+    if (err) {
+      console.error("❌ Error al obtener registros:", err.message);
+      return res.status(500).json({ error: err.message });
+    }
+    res.json(rows);
+  });
 });
 
 // Iniciar servidor
